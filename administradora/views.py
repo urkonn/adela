@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
 
-def landing(request):
-    return render(request, 'landing.html')
+class LandingView(TemplateView):
+    template_name = 'landing.html'
 
 
 def login(request):

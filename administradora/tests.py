@@ -1,26 +1,19 @@
-from django.core.urlresolvers import resolve
+#from django.core.urlresolvers import resolve, reverse
 from django.template.loader import render_to_string
 from django.test import TestCase
-from django.test.client import Client
+from django.test.client import Client, RequestFactory
 from django.http import HttpRequest
 from django.contrib.auth.models import User
-from administradora.views import landing, login
+from administradora.views import LandingView, login
 
 
 class TestPaginaInicio(TestCase):
-    def test_url_resolves_home_page_view(self):
-        found = resolve('/')
-        self.assertEqual(found.func, landing)
 
-    def test_home_returns_correct_template(self):
-        request = HttpRequest()
-        response = landing(request)
-        expected_html = render_to_string('landing.html')
-        self.assertEqual(response.content.decode(), expected_html)
-
-    def test_url_resolves_login_page_view(self):
-        found = resolve('/login/')
-        self.assertEqual(found.func, login)
+    def test_landing_template_view(self):
+        self.factory = RequestFactory()
+        request = self.factory.get('/')
+        response = LandingView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
 
     def test_login_returns_correct_template(self):
         request = HttpRequest()
