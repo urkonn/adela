@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 
@@ -34,7 +35,13 @@ class AppUserTest(unittest.TestCase):
 
     def test_loggedout_user_fills_login_form_with_invalid_credentials(self):
         #lleno la forma con una cuenta no valida, veo un error
-        pass
+        self.browser.get('http://127.0.0.1:8000/login')
+        loginuserform = self.browser.find_element_by_name('user')
+        loginuserform.send_keys('wronguser')
+        loginpasswdform = self.browser.find_element_by_name('password')
+        loginpasswdform.send_keys('wrongpassword')
+        loginsubmitform = self.browser.find_element_by_name('continue')
+        loginsubmitform.send_keys(Keys.ENTER)
 
     def test_loggedout_user_fills_login_form_with_valid_credentials(self):
         #lleno la forma con una cuenta valida me dirigen al home de mi cuenta y veo un msg de exito
