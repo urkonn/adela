@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<form id="loginForm" method="POST">
+<form id="loginForm" method="POST">{% csrf_token %}
     <input name="user" type="text" placeholder="user" autofocus="true" />
     <input name="password" type="password" placeholder="password" />
-    <input type="submit" value="Login"/>
+    <input name="continue" type="submit" value="Login"/>
 </form>
 
 {% endblock %}

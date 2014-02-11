@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.http import HttpRequest
 from django.contrib.auth.models import User
-from administradora.views import LandingView, login
+from administradora.views import LandingView
 
 
 class TestPaginaInicio(TestCase):
@@ -15,12 +15,6 @@ class TestPaginaInicio(TestCase):
         response = LandingView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_login_returns_correct_template(self):
-        request = HttpRequest()
-        response = login(request)
-        expected_html = render_to_string('login.html')
-        self.assertEqual(response.content.decode(), expected_html)
-
     def test_login_form(self):
         appuser = Client()
         self.username = 'username'
@@ -29,3 +23,8 @@ class TestPaginaInicio(TestCase):
         self.test_user = User.objects.create_user(self.username, self.email, self.password)
         userlogin = appuser.login(username=self.username, password=self.password)
         self.assertEqual(userlogin, True)
+
+    def test_login_returns_correct_template(self):
+        client = Client()
+        response = client.post('/login', {'username': 'username', 'password': 'password'})
+        self.assertEqual(response.status_code, 200)

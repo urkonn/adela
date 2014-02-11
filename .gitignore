@@ -5,3 +5,5 @@
 local_settings.py
 .idea/
 venv/
+*.sqlite3
+*.db
