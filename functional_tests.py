@@ -45,7 +45,15 @@ class AppUserTest(unittest.TestCase):
 
     def test_loggedout_user_fills_login_form_with_valid_credentials(self):
         #lleno la forma con una cuenta valida me dirigen al home de mi cuenta y veo un msg de exito
-        pass
+        self.browser.get('http://127.0.0.1:8000/login')
+        loginuserform = self.browser.find_element_by_name('user')
+        loginuserform.send_keys('username')
+        loginpasswdform = self.browser.find_element_by_name('password')
+        loginpasswdform.send_keys('password')
+        loginsubmitform = self.browser.find_element_by_name('continue')
+        loginsubmitform.send_keys(Keys.ENTER)
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('authenticated', body.text)
 
     #Como usuario cuando:
     def test_loggedin_user_see_user_homepage(self):

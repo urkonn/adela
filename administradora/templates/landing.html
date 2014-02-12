@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="/login">Login</a>
+    {% if user.is_authenticated %}
+        <p>Welcome {{ user.first_name }}</p>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
 {% endblock %}
 
