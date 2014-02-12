@@ -58,7 +58,9 @@ class AppUserTest(unittest.TestCase):
     #Como usuario cuando:
     def test_loggedin_user_see_user_homepage(self):
         #entro a root debo ver el home de mi cuenta
-        pass
+        self.browser.get('http://127.0.0.1:8000/home')
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('profile', body.text)
 
     def test_loggedin_user_see_her_name(self):
         #entro a root, veo mi nombre
