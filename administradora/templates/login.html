@@ -10,8 +10,7 @@
     <p>Hi {{ user.first_name }}, you are authenticated now.</p>
 {% else %}
 <form id="loginForm" method="POST" action="{% url "django.contrib.auth.views.login" %}">{% csrf_token %}
-    <input name="user" type="text" placeholder="user" autofocus="true" />
-    <input name="password" type="password" placeholder="password" />
+{{ form }}
     <input name="continue" type="submit" value="Login"/>
 </form>
 {% endif %}
