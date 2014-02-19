@@ -3,6 +3,7 @@
 {% block content %}
     {% if user.is_authenticated %}
         <p>Welcome {{ user.first_name }}</p>
+        <p><a href="/logout">Logout</a></p>
     {% else %}
         <a href="/login">Login</a>
     {% endif %}

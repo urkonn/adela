@@ -15,9 +15,9 @@ class TestPaginaInicio(TestCase):
         response = LandingView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_not_logged_in_user_gets_error(self):
-        response = self.client.get('/home/')
-        self.assertEqual(response.status_code, 403)
+    def test_anonymous_user_gets_redirected(self):
+        response = self.client.get('/home/', follow=False)
+        self.assertEqual(response.status_code, 302)
 
     def test_login_form(self):
         appuser = Client()
