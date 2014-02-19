@@ -1,6 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
+import unittest.mock as mock
+
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adela.settings")
+from administradora.views import ProfileView
 
 
 class AppUserTest(unittest.TestCase):
@@ -14,7 +19,9 @@ class AppUserTest(unittest.TestCase):
     #Como anonimo cuando:
     def test_loggedout_user_cannot_see_other_sections_than_home(self):
         #entro a un path, me regresa al landing con un mensaje de error
-        pass
+        self.browser.get('http://127.0.0.1:8000/restricted')
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('404', body.text)
 
     def test_loggedout_user_can_see_landing_page(self):
         #entro a root, veo el landing
@@ -58,9 +65,15 @@ class AppUserTest(unittest.TestCase):
     #Como usuario cuando:
     def test_loggedin_user_see_user_homepage(self):
         #entro a root debo ver el home de mi cuenta
-        self.browser.get('http://127.0.0.1:8000/home')
-        body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('profile', body.text)
+        self.session = {"usersession": "123456"}
+        with mock.patch('django.contrib.auth.models.User') as user_mock:
+            user_mock.objects = mock.Mock()
+            config = {'get_return_value': mock.Mock()}
+            user_mock.objects.configure_mock(**config)
+            resp = ProfileView()
+            self.session = {}
+            expected_template = 'home.html'
+            self.assertEquals(resp.template_name, expected_template)
 
     def test_loggedin_user_see_her_name(self):
         #entro a root, veo mi nombre
