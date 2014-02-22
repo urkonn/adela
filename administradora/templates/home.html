@@ -2,7 +2,8 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <p>{{ user.first_name }}'s profile</p>
+        <p>{{ user.first_name }}'s profile</p> 
+        <p><a href="/upload">Upload inventory</a></p>
         <p><a href="/logout">Logout</a></p>
     {% endif %}
 {% endblock %}
