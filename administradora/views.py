@@ -1,8 +1,12 @@
 from django.views.generic.base import TemplateView
 
 from django.shortcuts import render
-from django.views.generic.edit import FormView
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+
+from .models import Inventory
 from .forms import InventoryForm
 
 
@@ -15,10 +19,18 @@ def ProfileView(request):
     return render(request, 'home.html')
 
 
-class UploadView(FormView):
-    template_name = 'upload.html'
-    form_class = InventoryForm
-    success_url = '/success/'
+def upload(request):
+    if request.method == 'POST':
+        form = InventoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance = Inventory(data_file=request.FILES['data_file'])
+            instance.save()
+            return HttpResponseRedirect('/success/')
+    else:
+        form = InventoryForm()
+    return render_to_response('upload.html', {'form': form}, context_instance=RequestContext(request))
 
 
 class SuccessView(TemplateView):
