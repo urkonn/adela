@@ -1,20 +1,39 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
-import unittest.mock as mock
+import mock
+import datetime
 
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adela.settings")
+from django.conf import settings
+from django.utils.importlib import import_module
+from django.utils import timezone
+from django.test import TestCase
+from django.test.client import Client
+from django.contrib.sessions.models import Session
 from administradora.views import ProfileView
 
 
-class AppUserTest(unittest.TestCase):
+class AppUserTest(TestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
         self.browser.quit()
+
+    def create_session(self):
+        appuser = Client()
+        appuser.login(username='username', password='password')
+        settings.SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+        engine = import_module(settings.SESSION_ENGINE)
+        store = engine.SessionStore()
+        store.save()
+        self.session = store
+        self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
+        s = Session(expire_date=timezone.now() + datetime.timedelta(days=1), session_key=store.session_key)
+        s.save()
 
     #Como anonimo cuando:
     def test_loggedout_user_cannot_see_other_sections_than_home(self):
@@ -77,7 +96,10 @@ class AppUserTest(unittest.TestCase):
 
     def test_loggedin_user_see_her_name(self):
         #entro a root, veo mi nombre
-        pass
+        self.create_session()
+        self.browser.get('http://127.0.0.1:8000/home')
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('profile', body.text)
 
     def test_loggedin_user_see_logout_link(self):
         #entro a root, veo liga para logout
@@ -92,4 +114,4 @@ class AppUserTest(unittest.TestCase):
         pass
 
 if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+    unittest.main()
