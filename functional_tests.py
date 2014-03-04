@@ -16,6 +16,9 @@ from administradora.views import ProfileView
 
 
 class AppUserTest(TestCase):
+    def mark_as_pending(self):
+        self.assertEqual(1, 0, "pending")
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
@@ -103,15 +106,15 @@ class AppUserTest(TestCase):
 
     def test_loggedin_user_see_logout_link(self):
         #entro a root, veo liga para logout
-        pass
+        self.mark_as_pending()
 
     def test_loggedin_user_gets_404_outside_user_homepage(self):
         #entro a otro path debo ver 404
-        pass
+        self.mark_as_pending()
 
     def test_loggedin_user_logout(self):
         #hago click en logout me dirigen al landing y veo un mensaje de exito.
-        pass
+        self.mark_as_pending()
 
 if __name__ == '__main__':
     unittest.main()
