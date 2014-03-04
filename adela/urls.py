@@ -3,10 +3,13 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'adela.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+from administradora.views import LandingView, ProfileView
 
-    url(r'^admin/', include(admin.site.urls)),
-)
+urlpatterns = patterns('',
+                       # Examples:
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^$', LandingView.as_view(), name='landing'),
+                       url(r'^home/$', ProfileView.as_view(), name='profile'),
+                       url(r'login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+                       url(r'logout/$', 'django.contrib.auth.views.logout', {'template_name': 'landing.html'}),
+                       )

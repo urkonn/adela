@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if form.errors %}
+    <p><strong>Your username and password doesn't match.</strong></p>
+    <p>Please try again.</p>
+{% endif %}
+    
+{% if user.is_authenticated %}
+    <p>Hi {{ user.first_name }}, you are authenticated now.</p>
+{% else %}
+<form id="loginForm" method="POST" action="{% url "django.contrib.auth.views.login" %}">{% csrf_token %}
+{{ form }}
+    <input name="continue" type="submit" value="Login"/>
+</form>
+{% endif %}
+
+{% endblock %}
