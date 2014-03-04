@@ -25,7 +25,7 @@ def upload(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            instance = Inventory(data_file=request.FILES['data_file'])
+            instance = Inventory(data_admin=instance.user, data_file=request.FILES['data_file'])
             instance.save()
             return HttpResponseRedirect('/success/')
     else:
