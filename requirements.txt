@@ -1,2 +1,4 @@
 Django==1.6.1
 selenium==2.39.0
+mock==1.0.1
+
