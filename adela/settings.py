@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'debug_toolbar_extra',
+    'django_extensions',
     'django_pdb',
     'storages',
     'administradora',
