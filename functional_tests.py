@@ -109,6 +109,37 @@ class SessionTests(LiveServerTestCase):
         self.selenium.find_element_by_link_text('Logout').click
         self.selenium.find_element_by_id('loginForm')
 
+    #upload tests
+    def test_loggedin_user_see_upload_inventory_link(self):
+        #estoy en mi home, veo una liga al inventario
+        request = self.factory.get('/home')
+        request.user = self.user
+        response = ProfileView(request)
+        self.selenium.get('%s%s' % (self.live_server_url, '/home'))
+        self.assertIn('upload', response.content)
+
+    def test_loggedin_user_clicks_inventory_link(self):
+        #hago click en inventario, veo un file input
+        request = self.factory.get('/home')
+        request.user = self.user
+        response = ProfileView(request)
+        self.selenium.get('%s%s' % (self.live_server_url, '/home'))
+        self.selenium.find_elements_by_partial_link_text('Upload').click
+        self.selenium.get('%s%s' % (self.live_server_url, '/upload'))
+        self.assertIn('upload', response.content)
+
+    def test_loggedin_user_load_file_into_the_file_input(self):
+        #cargo un archivo en el file input, veo feedback del proceso
+        self.mark_as_pending
+
+    def test_loggedin_user_uploads_file(self):
+        #carga el archivo, veo mensaje de exito y fecha de ultima actualizacion
+        self.mark_as_pending
+
+    def test_loggedin_user_see_upload_error_message(self):
+        #falla el upload, veo mensaje de error
+        self.mark_as_pending
+
 
 if __name__ == '__main__':
     unittest.main()

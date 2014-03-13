@@ -35,4 +35,3 @@ def upload(request):
 
 class SuccessView(TemplateView):
     template_name = 'success.html'
-
