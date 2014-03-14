@@ -1,0 +1,54 @@
+[
+    {
+        "identifier": "pef2013_1",
+        "title": "presupuestoDeEgresos2013",
+        "description": "Presupuesto de Egresos de la Federación para el 2013",
+        "keyword": [
+            "presupuesto",
+            "egreso"
+        ],
+        "modified": "20130222T10:00:00Z",
+        "publisher": "SHCP",
+        "contactPoint": "Mtro. Rodolfo Wilhelmy",
+        "mbox": "datos@shcp.gob.mx",
+        "accessLevel": "público",
+        "accessLevelComment": "",
+        "dataDictionary": "http://www.transparenciapresupuestaria.gob.mx/ptp/ServletImagen?tipo=csv&idDoc=711&diccionarioDeDatos=1",
+        "accessURL": "http://www.transparenciapresupuestaria.gob.mx/ptp/ServletImagen?tipo=csv&idDoc=711",
+        "format": "csv",
+        "byteSize": "8598323.2",
+        "webService": "",
+        "license": "http://creativecommons.org/licenses/by/2.5/mx/deed.es",
+        "spatial": [
+            32.71862,
+            -114.700699,
+            30.859409,
+            -115.818169
+        ],
+        "temporal": "20130101T00:00:00Z/20140101T00:00:00Z"
+    },
+    {
+        "identifier": "recetas201310",
+        "title": "Recetas médicas de las delegaciones en Octubre 2013",
+        "description": "Recetas médicas entregadas por todas las delegaciones en el mes de octubre de 2013. La base de datos fue anonimizada al remover datos personales.",
+        "keyword": [
+            "salud",
+            "imss",
+            "recetas"
+        ],
+        "modified": "20131101T10:00:00Z",
+        "publisher": "IMSS",
+        "contactPoint": "Mtro. Enrique Zapata",
+        "mbox": "datos@imss.gob.mx",
+        "accessLevel": "público",
+        "accessLevelComment": "Se removieron datos personales de la base de datos.",
+        "dataDictionary": "",
+        "accessURL": "http://www.imss.gob.mx/datos/recetas201310.csv",
+        "format": "csv",
+        "byteSize": "113770496",
+        "webService": "",
+        "license": "http://creativecommons.org/licenses/by/2.5/mx/deed.es",
+        "spatial": "nacional",
+        "temporal": "20131101T00:00:00Z/20131130T00:00:00Z"
+    }
+]
